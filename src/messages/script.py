@@ -35,7 +35,7 @@ messagesAmount = len(messages)
 index = open("../index.html", "w", encoding="utf-8")
 index.write('<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>OUR FACEBOOK CHAT</title><link href=\'css/main.css\' rel=\'stylesheet\' type=\'text/css\'><link href=\'themes/'+ theme +'/'+ theme +'.css\' rel=\'stylesheet\' type=\'text/css\'></head><body id="mainDiv"><div><div id="main" class="container"><h1 style="text-align: center;">OUR FACEBOOK CHAT</h1>')
 
-members = []
+members = {}
 dates = {}
 startDate = ""
 mostActiveDay = ""
@@ -66,7 +66,9 @@ for w in range(0, messagesAmount-1):
 	totalWords += len(re.findall(r"[\w']+", message))
 
 	if (user not in members):
-		members.append(user)
+		members[user] = 1
+	else:
+		members[user] += 1
 
 	if (date not in dates):
 		dates[date] = 1
@@ -85,7 +87,7 @@ for w in range(0, messagesAmount-1):
 
 print("\nFinding users...    ")
 index.write('<div class="block">')
-index.write('<h3>Members: ' + ', '.join(members) + '</h3>')
+index.write('<h3>Members: ' + ', '.join(members.keys()) + '</h3>')
 
 print("Finding start date...")
 index.write('<h3>Start date: ' + messages[messagesAmount-1].find('span', attrs={'class': 'meta'}).text[:-14] + '</h3>')
@@ -125,7 +127,9 @@ index.write('<div class="md-2"><h4>'+ str(round(totalMessages/delta.days, 2)) +'
 index.write('</div>')
 
 
+# CHARTS
 
+index.write('<div class="block"><h4>Who texts the most?</h4><div class="charts"><div id="chart-area"></div></div><h4>Activity by Day</h4><div class="charts"><div id="chart-area2"></div></div><h4>Timeline</h4><div class="charts"><div id="chart-area3"></div></div><h4>Activity by Week</h4><div class="charts"><div id="chart-area4"></div></div><h4>Top emoji*</h4><div class="charts"><div id="chart-area5"></div></div><h4>Top words</h4><div class="charts"><div id="chart-area6"></div></div><h6>* Counts how many times found in chat, not in message ( if in one message there were 3 &#x1F618, it counts it as 1)</h6></div>')
 
 
 index.write('<script type="text/javascript" src="themes/'+ theme +'/'+theme+'.js"></script><script type="text/javascript" src="js/main.js"></script><script src="js/plotly-latest.min.js"></script><script type="text/javascript">window.onload = function() {	Plotly.newPlot(\'chart-area\', data, layout);	Plotly.newPlot(\'chart-area2\', data2);	Plotly.newPlot(\'chart-area3\', data3);	Plotly.newPlot(\'chart-area4\', data4);	Plotly.newPlot(\'chart-area5\', data5);	Plotly.newPlot(\'chart-area6\', data6);}</script></body></html>')

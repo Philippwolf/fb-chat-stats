@@ -2,6 +2,10 @@
 
 This application is changing your facebook data into nice looking website with easy customizable themes.
 
+## How does it looks?
+
+Check out this live example: https://smirnoffq.github.io/fb-chat-stats/src/
+
 ## Where to go to download Facebook data?
 
 Check out this page: https://www.facebook.com/help/www/405183566203254

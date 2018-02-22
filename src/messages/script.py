@@ -30,7 +30,7 @@ theme = "valentines"
 monthLang = "pl"
 '''
 # open file with messages and read them all
-file = open("messages.html", "r", encoding="utf-8")
+file = open(fileName, "r", encoding="utf-8")
 readlines = file.readlines()
 file.close()
 
@@ -47,7 +47,7 @@ messagesAmount = len(messages)
 
 # create index.html file
 index = open("../index.html", "w", encoding="utf-8")
-index.write('<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>OUR FACEBOOK CHAT</title><link href=\'css/main.css\' rel=\'stylesheet\' type=\'text/css\'><link href=\'themes/'+ theme +'/'+ theme +'.css\' rel=\'stylesheet\' type=\'text/css\'></head><body id="mainDiv"><div><div id="main" class="container"><h1 style="text-align: center;">OUR FACEBOOK CHAT</h1>')
+index.write('<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>OUR FACEBOOK CHAT</title><link href=\'css/main.css\' rel=\'stylesheet\' type=\'text/css\'><link href=\'themes/'+ theme +'/'+ theme +'.css\' rel=\'stylesheet\' type=\'text/css\'></head><body id="mainDiv"><span id="version">Version 1.0<br /><a href="https://github.com/Smirnoffq/" target="_blank">My Github</a></span><div><div id="main" class="container"><h1 style="text-align: center;">OUR FACEBOOK CHAT</h1>')
 
 members = {}
 dates = {}

@@ -13,6 +13,8 @@ First of all if you don't have BeautifulSoup, you need to install it by using
 pip instal bs4
 ```
 
+If you already have bs4:
+
 1. Go to /messages directory
 2. Paste .html file from your downloaded Facebook data
 3. Run script.py file

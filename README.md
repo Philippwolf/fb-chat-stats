@@ -9,9 +9,9 @@ Check out this page: https://www.facebook.com/help/www/405183566203254
 ## How to use this script?
 
 First of all if you don't have BeautifulSoup, you need to install it by using 
-'''
+```
 pip instal bs4
-'''
+```
 
 1. Go to /messages directory
 2. Paste .html file from your downloaded Facebook data

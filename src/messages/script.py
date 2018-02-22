@@ -4,7 +4,6 @@ import re
 import datetime
 import json
 import random
-import os.path
 
 
 def monthToNum(month):
@@ -22,13 +21,14 @@ def fbDateToWeekday(date1):
 
 	return wholeDate.strftime("%A")
 
-#fileName = input("Fb messages file: ")
-#theme = input("Theme name: ")
-#monthLang = input("Month language: ")
+fileName = input("Fb messages file: ") + ".html"
+theme = input("Theme name: ")
+monthLang = input("Month language: ")
+'''
 fileName = "messages.html"
 theme = "valentines"
 monthLang = "pl"
-
+'''
 # open file with messages and read them all
 file = open("messages.html", "r", encoding="utf-8")
 readlines = file.readlines()
@@ -184,9 +184,8 @@ index.write('<div class="block"><h4>Who texts the most?</h4><div class="charts">
 
 
 
-if (os.path.isfile("themes/'+ theme +'/'+theme+'.js")):
-	index.write('<script type="text/javascript" src="themes/'+ theme +'/'+theme+'.js"></script>')
 
+index.write('<script type="text/javascript" src="themes/'+ theme +'/'+theme+'.js"></script>')
 index.write('<script type="text/javascript" src="js/main.js"></script><script src="js/plotly-latest.min.js"></script><script type="text/javascript">window.onload = function() {	Plotly.newPlot(\'chart-area\', data, layout);	Plotly.newPlot(\'chart-area2\', data2);	Plotly.newPlot(\'chart-area3\', data3);	Plotly.newPlot(\'chart-area4\', data4);	Plotly.newPlot(\'chart-area5\', data5);	Plotly.newPlot(\'chart-area6\', data6);}</script></body></html>')
 
 index.close()

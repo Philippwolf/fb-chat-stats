@@ -1,6 +1,6 @@
 #  -*- coding: utf-8 -*-
-
 from bs4 import BeautifulSoup
+import re
 import datetime
 import json
 
@@ -29,7 +29,7 @@ p = soup.findAll('p')
 
 # count messages
 messagesAmount = len(messages)
-pAmount = len(p)
+
 
 # create index.html file
 index = open("../index.html", "w", encoding="utf-8")
@@ -46,15 +46,24 @@ totalWords = 0
 averageMessageLen = 0
 messagesPerDay = 0
 
+pAmount = 0
 
 print("Reading messages...    ", end="")
 for w in range(0, messagesAmount-1):
 	user = messages[w].find('span', attrs={'class': 'user'})
 	date = messages[w].find('span', attrs={'class': 'meta'})
-	message = 
+	message = p[pAmount]
+	x = message.find("p")
+	while x != None:
+		pAmount += 1
+		x = x.find("p")
 
 	user = user.text
 	date = date.text[:-14]
+	message = message.text
+
+	# https://stackoverflow.com/questions/1712227/how-to-get-the-number-of-elements-in-a-list-in-python
+	totalWords += len(re.findall(r"[\w']+", message))
 
 	if (user not in members):
 		members.append(user)
@@ -69,6 +78,10 @@ for w in range(0, messagesAmount-1):
 		print(str(pAmount), end="")
 
 	pAmount += 1
+
+
+
+# TOTALS
 
 print("\nFinding users...    ")
 index.write('<div class="block">')
@@ -100,6 +113,15 @@ index.write('<div class="block"><h1>Totals</h1>')
 index.write('<div class="md-3"><h4>'+ str(delta.days) +'</h4><h5>Days</h5></div>')
 index.write('<div class="md-3"><h4>'+ str(totalMessages) +'</h4><h5>Messages</h5></div>')
 index.write('<div class="md-3"><h4>'+ str(totalWords) +'</h4><h5>Words</h5></div>')
+index.write('</div>')
+
+
+
+# AVERAGES
+
+index.write('<div class="block"><h1>Averages</h1>')
+index.write('<div class="md-2"><h4>'+ str(round(totalWords/totalMessages, 2)) +'</h4><h5>Length of a message</h5></div>')
+index.write('<div class="md-2"><h4>'+ str(round(totalMessages/delta.days, 2)) +'</h4><h5>Messages per day</h5></div>')
 index.write('</div>')
 
 

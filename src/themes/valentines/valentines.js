@@ -52,3 +52,6 @@ function getDocHeight() {
         D.body.clientHeight, D.documentElement.clientHeight
     );
 }
+
+setup()
+start()

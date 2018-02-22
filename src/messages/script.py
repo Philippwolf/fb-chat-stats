@@ -4,6 +4,7 @@ import re
 import datetime
 import json
 import random
+import os.path
 
 
 def monthToNum(month):
@@ -21,9 +22,10 @@ def fbDateToWeekday(date1):
 
 	return wholeDate.strftime("%A")
 
-
+#fileName = input("Fb messages file: ")
 #theme = input("Theme name: ")
 #monthLang = input("Month language: ")
+fileName = "messages.html"
 theme = "valentines"
 monthLang = "pl"
 
@@ -52,6 +54,7 @@ dates = {}
 hours = {'00': 0, '01': 0, '02': 0,'03': 0, '04': 0, '05': 0,'06': 0, '07': 0, '08': 0,'09': 0, '10': 0, '11': 0,'12': 0, '13': 0, '14': 0,'15': 0, '16': 0, '17': 0,'18': 0, '19': 0, '20': 0,'21': 0, '22': 0, '23': 0}
 weekDays = {'Monday': 0, 'Tuesday': 0, 'Wednesday': 0, 'Thursday': 0, 'Friday': 0, 'Saturday': 0, 'Sunday': 0}
 allWords = {}
+emojis = {'&#128054': 0, '&#128049': 0, '&#128045': 0, '&#128057': 0, '&#128048': 0, '&#129418': 0, '&#128059': 0, '&#128060': 0, '&#128040': 0, '&#128047': 0, '&#129409': 0, '&#128046': 0, '&#128055': 0, '&#128061': 0, '&#128056': 0, '&#128053': 0, '&#128586': 0, '&#128585': 0, '&#128586': 0, '&#128018': 0, '&#128020': 0, '&#128039': 0, '&#128038': 0, '&#128036': 0, '&#128035': 0, '&#128037': 0, '&#129414': 0, '&#129413': 0, '&#129417': 0, '&#129415': 0, '&#128058': 0, '&#128023': 0, '&#128052': 0, '&#129412': 0, '&#128029': 0, '&#128027': 0, '&#129419': 0, '&#128012': 0, '&#128026': 0, '&#128030': 0, '&#128028': 0, '&#128375': 0, '&#128376': 0, '&#128034': 0, '&#128013': 0, '&#129422': 0, '&#129410': 0, '&#129408': 0, '&#129425': 0, '&#128025': 0, '&#129424': 0, '&#128032': 0, '&#128031': 0, '&#128033': 0, '&#128044': 0, '&#129416': 0, '&#128051': 0, '&#128011': 0, '&#128010': 0, '&#128006': 0, '&#128005': 0, '&#128003': 0, '&#128002': 0, '&#128004': 0, '&#129420': 0, '&#128042': 0, '&#128043': 0, '&#128024': 0, '&#129423': 0, '&#129421': 0, '&#128014': 0, '&#128022': 0, '&#128016': 0, '&#128015': 0, '&#128017': 0, '&#128021': 0, '&#128041': 0, '&#128008': 0, '&#128019': 0, '&#129411': 0, '&#128330': 0, '&#128007': 0, '&#128001': 0, '&#128000': 0, '&#128063': 0, '&#128062': 0, '&#128009': 0, '&#128050': 0, '&#127797': 0, '&#127876': 0, '&#127794': 0, '&#127795': 0, '&#127796': 0, '&#127793': 0, '&#127807': 0, '&#9752': 0, '&#127808': 0, '&#127885': 0, '&#127883': 0, '&#127811': 0, '&#127810': 0, '&#127809': 0, '&#127812': 0, '&#127806': 0, '&#128144': 0, '&#127799': 0, '&#127801': 0, '&#129344': 0, '&#127803': 0, '&#127804': 0, '&#127800': 0, '&#127802': 0, '&#127758': 0, '&#127757': 0, '&#127759': 0, '&#127765': 0, '&#127766': 0, '&#127767': 0, '&#127768': 0, '&#127761': 0, '&#127762': 0, '&#127763': 0, '&#127764': 0, '&#127770': 0, '&#127773': 0, '&#127774': 0, '&#127771': 0, '&#127772': 0, '&#127769': 0, '&#128171': 0, '&#11088': 0, '&#127775': 0, '&#10024': 0, '&#9889': 0, '&#128293': 0, '&#128165': 0, '&#9732': 0, '&#9728': 0, '&#127780': 0, '&#9925': 0, '&#127781': 0, '&#127782': 0, '&#127752': 0, '&#9729': 0, '&#127783': 0, '&#9928': 0, '&#127785': 0, '&#127784': 0, '&#9731': 0, '&#9924': 0, '&#10052': 0, '&#127788': 0, '&#128168': 0, '&#127786': 0, '&#127787': 0, '&#127754': 0, '&#128167': 0, '&#128166': 0, '&#9748': 0, '&#128512': 0, '&#128513': 0, '&#128514': 0, '&#129315': 0, '&#128515': 0, '&#128516': 0, '&#128517': 0, '&#128518': 0, '&#128521': 0, '&#128522': 0, '&#128523': 0, '&#128526': 0, '&#128525': 0, '&#128536': 0, '&#128535': 0, '&#128537': 0, '&#128538': 0, '&#128578': 0, '&#129303': 0, '&#129321': 0, '&#129300': 0, '&#129320': 0, '&#128528': 0, '&#128529': 0, '&#128566': 0, '&#128580': 0, '&#128527': 0, '&#128547': 0, '&#128549': 0, '&#128558': 0, '&#129296': 0, '&#128559': 0, '&#128554': 0, '&#128555': 0, '&#128564': 0, '&#128524': 0, '&#128539': 0, '&#128540': 0, '&#128541': 0, '&#129316': 0, '&#128530': 0, '&#128531': 0, '&#128532': 0, '&#128533': 0, '&#128579': 0, '&#129297': 0, '&#128562': 0, '&#128577': 0, '&#128534': 0, '&#128542': 0, '&#128543': 0, '&#128548': 0, '&#128546': 0, '&#128557': 0, '&#128550': 0, '&#128551': 0, '&#128552': 0, '&#128553': 0, '&#129327': 0, '&#128556': 0, '&#128560': 0, '&#128561': 0, '&#128563': 0, '&#129322': 0, '&#128565': 0, '&#128545': 0, '&#128544': 0, '&#129324': 0, '&#128567': 0, '&#129298': 0, '&#129301': 0, '&#129314': 0, '&#129326': 0, '&#129319': 0, '&#128519': 0, '&#129312': 0, '&#129313': 0, '&#129317': 0, '&#129323': 0, '&#129325': 0, '&#129488': 0, '&#129299': 0, '&#128520': 0, '&#128127': 0, '&#128121': 0, '&#128122': 0, '&#128128': 0, '&#128123': 0, '&#128125': 0, '&#129302': 0, '&#128169': 0, '&#128570': 0, '&#128568': 0, '&#128569': 0, '&#128571': 0, '&#128572': 0, '&#128573': 0, '&#128576': 0, '&#128575': 0, '&#128574': 0, '&#128584': 0}
 startDate = ""
 mostActiveDay = ""
 mostActiveDayMessagesCount = 0
@@ -78,10 +81,12 @@ for w in range(messagesAmount-1, -1, -1):
 	message = message.text
 	hour = date.split()[4]
 	hour = hour.split(":")[0]
-	'''
-	m = BeautifulSoup.unicode(message).encode("utf-8")
-	print(m)
-	'''
+	
+	m = message.encode("ascii", 'xmlcharrefreplace')
+	for x in emojis:
+		if str(x) in str(m):
+			emojis[x] += 1
+	
 	# https://stackoverflow.com/questions/1712227/how-to-get-the-number-of-elements-in-a-list-in-python
 	words = re.findall(r"[\w']+", message)
 	totalWords += len(words)
@@ -156,7 +161,7 @@ delta = secondDate - firstDate
 
 
 index.write('<div class="block"><h1>Totals</h1>')
-index.write('<div class="md-3"><h4>'+ str(delta.days) +'</h4><h5>Days</h5></div>')
+index.write('<div class="md-3"><h4>'+ str(delta.days + 1) +'</h4><h5>Days</h5></div>')
 index.write('<div class="md-3"><h4>'+ str(totalMessages) +'</h4><h5>Messages</h5></div>')
 index.write('<div class="md-3"><h4>'+ str(totalWords) +'</h4><h5>Words</h5></div>')
 index.write('</div>')
@@ -169,7 +174,7 @@ index.write('</div>')
 print("Counting averages...")
 index.write('<div class="block"><h1>Averages</h1>')
 index.write('<div class="md-2"><h4>'+ str(round(totalWords/totalMessages, 2)) +'</h4><h5>Length of a message</h5></div>')
-index.write('<div class="md-2"><h4>'+ str(round(totalMessages/delta.days, 2)) +'</h4><h5>Messages per day</h5></div>')
+index.write('<div class="md-2"><h4>'+ str(round(totalMessages/(delta.days + 1), 2)) +'</h4><h5>Messages per day</h5></div>')
 index.write('</div>')
 
 
@@ -178,7 +183,11 @@ print("Drawing charts...")
 index.write('<div class="block"><h4>Who texts the most?</h4><div class="charts"><div id="chart-area"></div></div><h4>Activity by Day</h4><div class="charts"><div id="chart-area2"></div></div><h4>Timeline</h4><div class="charts"><div id="chart-area3"></div></div><h4>Activity by Week</h4><div class="charts"><div id="chart-area4"></div></div><h4>Top emoji*</h4><div class="charts"><div id="chart-area5"></div></div><h4>Top words</h4><div class="charts"><div id="chart-area6"></div></div><h6>* Counts how many times found in chat, not in message ( if in one message there were 3 &#x1F618, it counts it as 1)</h6></div>')
 
 
-index.write('<script type="text/javascript" src="themes/'+ theme +'/'+theme+'.js"></script><script type="text/javascript" src="js/main.js"></script><script src="js/plotly-latest.min.js"></script><script type="text/javascript">window.onload = function() {	Plotly.newPlot(\'chart-area\', data, layout);	Plotly.newPlot(\'chart-area2\', data2);	Plotly.newPlot(\'chart-area3\', data3);	Plotly.newPlot(\'chart-area4\', data4);	/*Plotly.newPlot(\'chart-area5\', data5);*/	Plotly.newPlot(\'chart-area6\', data6);}</script></body></html>')
+
+if (os.path.isfile("themes/'+ theme +'/'+theme+'.js")):
+	index.write('<script type="text/javascript" src="themes/'+ theme +'/'+theme+'.js"></script>')
+
+index.write('<script type="text/javascript" src="js/main.js"></script><script src="js/plotly-latest.min.js"></script><script type="text/javascript">window.onload = function() {	Plotly.newPlot(\'chart-area\', data, layout);	Plotly.newPlot(\'chart-area2\', data2);	Plotly.newPlot(\'chart-area3\', data3);	Plotly.newPlot(\'chart-area4\', data4);	Plotly.newPlot(\'chart-area5\', data5);	Plotly.newPlot(\'chart-area6\', data6);}</script></body></html>')
 
 index.close()
 print()
@@ -251,21 +260,24 @@ mainjs.write('],    type: \'bar\',    marker: {    \n\n  color: "#d83434", \n\n 
 
 # Top emoji
 
-'''
+mainjs.write('var data5 = [  {    x: [')
 
-var data5 = [
-  {
-    x: [String.fromCodePoint(0x1F612), String.fromCodePoint(0x1F60F), String.fromCodePoint(0x1F618), String.fromCodePoint(0x1F60A), String.fromCodePoint(0x1F602), String.fromCodePoint(0x1F620), String.fromCodePoint(0x1F61A)],
-    y: [584,388,274,235,183,182,162],
-    type: 'bar',
-    marker: {
-      color: "#d83434",
-  },
-  }
-];
+i = 0
+for key in sorted(emojis, key=emojis.__getitem__, reverse=True):
+	mainjs.write("String.fromCodePoint(" + hex(int(key[2:])) + "),")
+	i += 1
+	if (i == 10): break
 
-'''
+mainjs.write('],    y: [')
 
+i = 0
+for key in sorted(emojis, key=emojis.__getitem__, reverse=True):
+	mainjs.write(str(emojis[key]) + ",")
+	i += 1
+	if (i == 10): break
+
+
+mainjs.write('],    type: \'bar\',    marker: {   \n\n   color: "#d83434", \n\n },  }];')
 
 
 # Top words

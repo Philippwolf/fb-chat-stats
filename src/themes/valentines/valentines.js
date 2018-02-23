@@ -53,5 +53,3 @@ function getDocHeight() {
     );
 }
 
-setup()
-start()

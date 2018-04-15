@@ -1,3 +1,4 @@
+var layout = {  height: 400,  width: 500,  showlegend: {"orientation": "h"} };var data = [{  values: ["430","530",],  labels: ["Someone","Someone1",],  type: 'pie',  marker: {
 
 colors: [    "#8eb9e3","#35accd",
 

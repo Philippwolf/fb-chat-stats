@@ -90,7 +90,7 @@ for w in range(messagesAmount-1, -1, -1):
 	elif(monthLang == "en"):
 		hour = date.split()[5]
 		identifier = hour[-2:]
-		print(hour + " >>> " + identifier)
+		
 		hour = hour.split(":")[0]
 		if(identifier == "pm"):
 			hour = str(int(hour) + 12)
